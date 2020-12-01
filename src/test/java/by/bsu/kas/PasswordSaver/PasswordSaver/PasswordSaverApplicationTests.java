@@ -1,4 +1,4 @@
-package by.bsu.kas.PasswordSaver;
+package by.bsu.kas.PasswordSaver.PasswordSaver;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

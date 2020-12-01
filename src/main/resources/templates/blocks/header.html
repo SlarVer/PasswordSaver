@@ -1,0 +1,10 @@
+<div th:fragment="header">
+    <div class="d-flex flex-column flex-md-row justify-content-end p-3 px-md-4 mb-3">
+        <a class="btn btn-dark btn-head" href="/login" sec:authorize="!isAuthenticated()">Log in</a>
+        <a class="btn btn-dark btn-head" href="/registration" sec:authorize="!isAuthenticated()">Sign up</a>
+        <a class="btn btn-dark btn-head" href="/profile" sec:authorize="isAuthenticated()" th:text="${username}"/>
+        <a class="btn btn-dark btn-head" href="/admin" sec:authorize="hasRole('ROLE_ADMIN')">Admin</a>
+        <a class="btn btn-dark btn-head" href="/logout" sec:authorize="isAuthenticated()">Log out</a>
+        <a class="btn btn-dark btn-head" href="/">Main</a>
+    </div>
+</div>

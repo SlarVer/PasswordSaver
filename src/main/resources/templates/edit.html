@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <title>Edit</title>
+</head>
+<body class="bg">
+<header th:insert="blocks/header :: header"/>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4 col-sm-4 col-xs-12"></div>
+        <div class="col-md-4 col-sm-4 col-xs-12">
+            <form method="post" class="form-container" th:object="${movie}">
+                <h2 style="text-align: center">Edit movie</h2>
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input th:field="*{title}" placeholder="Enter title" class="form-control">
+                    <span th:errors="*{title}" class="error" id="title" ></span>
+                </div>
+                <div class="form-group">
+                    <label for="slogan">Slogan</label>
+                    <input th:field="*{slogan}" placeholder="Enter slogan" class="form-control">
+                    <span th:errors="*{slogan}" class="error" id="slogan" ></span>
+                </div>
+                <div class="form-group">
+                    <label for="year">Year</label>
+                    <input th:field="*{year}" placeholder="Enter year" class="form-control">
+                    <span th:errors="*{year}" class="error" id="year" ></span>
+                </div>
+                <div class="form-group">
+                    <label for="length">Length</label>
+                    <input th:field="*{length}" placeholder="Enter length (min)" class="form-control">
+                    <span th:errors="*{length}" class="error" id="length" ></span>
+                </div>
+                <div class="form-group" style="text-align: center">
+                    <button type="submit" class="btn btn-medium btn-secondary" style="text-align: center">Update</button>
+                    <a th:href="'/allMovies/' + ${movie.title}" class="btn btn-medium btn-secondary">Back</a>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12"></div>
+    </div>
+
+
+</div>
+
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
