@@ -17,11 +17,17 @@ import java.util.Collections;
 
 @Service
 public class UserService implements UserDetailsService {
-    @Autowired
     UserRepository userRepository;
-
     @Autowired
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    public void setbCryptPasswordEncoder(BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

@@ -17,14 +17,16 @@
         <div class="col-md-2 col-sm-2 col-xs-12"></div>
         <div class="col-md-8 col-sm-8 col-xs-12">
             <form class="form-container" style="text-align: center">
-                <div sec:authorize="!isAuthenticated()">
-                    <h1 style="text-align: center">Welcome stranger</h1>
-                    <h2 style="text-align: center">Please log in or sign up</h2>
-                </div>
                 <div sec:authorize="isAuthenticated()">
-                    <div class="form-group">
-                        <a href="/notes" class="btn btn-medium btn-secondary">View services</a>
+                    <h1 th:if="${serviceList.size() != 0}" th:text="'All the credentials you&#x60ve saved'"/>
+                    <div class="d-flex flex-column">
+                        <div th:each="service: ${serviceList}">
+                            <div class="p-2" style="text-align: left">
+                                <a th:text="${service}" th:href="'/notes/' + ${service}" style="font-size: large"/>
+                            </div>
+                        </div>
                     </div>
+                    <h1 th:if="${serviceList.size() == 0}" th:text="'Looks like you haven&#x60t saved any data yet'"/>
                 </div>
             </form>
         </div>

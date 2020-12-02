@@ -8,27 +8,23 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <link rel="stylesheet" th:href="@{/css/style.css}" />
-    <title>Main page</title>
+    <title th:text="${notes.get(0).service}"/>
 </head>
 <body class="bg">
 <header th:insert="blocks/header :: header"/>
+
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-2 col-sm-2 col-xs-12"></div>
-        <div class="col-md-8 col-sm-8 col-xs-12">
-            <form class="form-container" style="text-align: center">
-                <div sec:authorize="!isAuthenticated()">
-                    <h1 style="text-align: center">Welcome stranger</h1>
-                    <h2 style="text-align: center">Please log in or sign up</h2>
+        <div class="col-md-3 col-sm-3 col-xs-12"></div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="form-container" style="text-align: center">
+                <h2 th:text="'Accounts assosiated with service &#34' + ${notes.get(0).service} + '&#34'"/>
+                <div th:each="note: ${notes}" class="form-container-small" style="text-align: left">
+                    <h3 th:text="${note.username} + ' - ' + ${note.password}"/>
                 </div>
-                <div sec:authorize="isAuthenticated()">
-                    <div class="form-group">
-                        <a href="/notes" class="btn btn-medium btn-secondary">View services</a>
-                    </div>
-                </div>
-            </form>
+            </div>
         </div>
-        <div class="col-md-2 col-sm-2 col-xs-12"></div>
+        <div class="col-md-3 col-sm-3 col-xs-12"></div>
     </div>
 
 
