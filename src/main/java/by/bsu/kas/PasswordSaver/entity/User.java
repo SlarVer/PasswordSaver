@@ -10,8 +10,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.util.Collection;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -38,6 +38,13 @@ public class User implements UserDetails {
     private Date birthDate;
 
     private String profilePic;
+
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Note> notes = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -103,6 +110,14 @@ public class User implements UserDetails {
         this.profilePic = profilePic;
     }
 
+    public List<Note> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(List<Note> notes) {
+        this.notes = notes;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -136,6 +151,34 @@ public class User implements UserDetails {
         this.password = password;
         this.name = name;
         this.birthDate = birthDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof User))
+            return false;
+        User user = (User) o;
+        return Objects.equals(this.id, user.id) && Objects.equals(this.username, user.username) &&
+                Objects.equals(this.password, user.password) && Objects.equals(this.name, user.name) &&
+                Objects.equals(this.birthDate, user.birthDate) && Objects.equals(this.profilePic, user.profilePic) &&
+                Objects.equals(this.notes, user.notes) && Objects.equals(this.roles, user.roles);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.id, this.username, this.password, this.name, this.birthDate,
+                this.profilePic, this.notes, this.roles);
+    }
+
+    @Override
+    public String toString() {
+        return "User{id=" + this.id + ", username='" + this.username + '\'' +
+                ", password='" + this.password + '\'' + ", name='" + this.name + '\'' +
+                ", birthDate='" + this.birthDate + '\'' + ", profilePic='" + this.profilePic + '\'' +
+                ", notes={" + this.notes.stream().map(Note::getService).collect(Collectors.joining(", ")) + '}' +
+                ", roles={" + this.roles.stream().map(Role::getName).collect(Collectors.joining(", ")) + "}}";
     }
 
 }
