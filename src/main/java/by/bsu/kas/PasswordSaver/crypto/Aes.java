@@ -1,8 +1,12 @@
 package by.bsu.kas.PasswordSaver.crypto;
 
+import by.bsu.kas.PasswordSaver.crypto.asymmetric.Constants;
+
 import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
 public class Aes {
@@ -39,5 +43,12 @@ public class Aes {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static String generateKey() throws NoSuchAlgorithmException {
+        KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+        keyGenerator.init(Constants.KEY_SIZE_AES);
+        SecretKey secretKey = keyGenerator.generateKey();
+        return Base64.getEncoder().encodeToString(secretKey.getEncoded());
     }
 }

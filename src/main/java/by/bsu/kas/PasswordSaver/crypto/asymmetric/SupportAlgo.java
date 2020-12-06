@@ -8,7 +8,7 @@ import java.util.List;
 import static by.bsu.kas.PasswordSaver.crypto.asymmetric.Constants.*;
 
 public class SupportAlgo {
-    public String BigIntegerToString(BigInteger bigInteger) {
+    public static String bigIntegerToString(BigInteger bigInteger) {
         return Base64.getEncoder().encodeToString(bigInteger.toByteArray());
     }
 
