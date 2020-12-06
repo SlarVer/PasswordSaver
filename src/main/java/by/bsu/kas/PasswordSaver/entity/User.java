@@ -39,8 +39,17 @@ public class User implements UserDetails {
 
     private String profilePic;
 
+    private String aesKey;
+
+    private int aesKeySign;
+
+    private String secretKey;
+
+    private String openKey;
+
     @OneToMany(
             mappedBy = "user",
+            fetch = FetchType.EAGER,
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
@@ -118,6 +127,38 @@ public class User implements UserDetails {
         this.notes = notes;
     }
 
+    public String getAesKey() {
+        return aesKey;
+    }
+
+    public void setAesKey(String aesKey) {
+        this.aesKey = aesKey;
+    }
+
+    public String getSecretKey() {
+        return secretKey;
+    }
+
+    public void setSecretKey(String secretKey) {
+        this.secretKey = secretKey;
+    }
+
+    public String getOpenKey() {
+        return openKey;
+    }
+
+    public void setOpenKey(String openKey) {
+        this.openKey = openKey;
+    }
+
+    public int getAesKeySign() {
+        return aesKeySign;
+    }
+
+    public void setAesKeySign(int aesKeySign) {
+        this.aesKeySign = aesKeySign;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -163,13 +204,15 @@ public class User implements UserDetails {
         return Objects.equals(this.id, user.id) && Objects.equals(this.username, user.username) &&
                 Objects.equals(this.password, user.password) && Objects.equals(this.name, user.name) &&
                 Objects.equals(this.birthDate, user.birthDate) && Objects.equals(this.profilePic, user.profilePic) &&
-                Objects.equals(this.notes, user.notes) && Objects.equals(this.roles, user.roles);
+                Objects.equals(this.notes, user.notes) && Objects.equals(this.roles, user.roles) &&
+                Objects.equals(this.aesKey, user.aesKey) && Objects.equals(this.openKey, user.openKey) &&
+                Objects.equals(this.secretKey, user.secretKey) && Objects.equals(this.aesKeySign, user.aesKeySign);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(this.id, this.username, this.password, this.name, this.birthDate,
-                this.profilePic, this.notes, this.roles);
+                this.profilePic, this.notes, this.roles, this.aesKey, this.openKey, this.secretKey, this.aesKeySign);
     }
 
     @Override

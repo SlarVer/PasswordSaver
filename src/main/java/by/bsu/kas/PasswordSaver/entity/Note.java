@@ -1,7 +1,14 @@
 package by.bsu.kas.PasswordSaver.entity;
 
+import by.bsu.kas.PasswordSaver.crypto.Aes;
+import by.bsu.kas.PasswordSaver.crypto.asymmetric.MainAlgo;
+
 import javax.persistence.*;
+import java.math.BigInteger;
 import java.util.Objects;
+
+import static by.bsu.kas.PasswordSaver.crypto.asymmetric.SupportAlgo.bigIntegerToString;
+import static by.bsu.kas.PasswordSaver.crypto.asymmetric.SupportAlgo.stringToBigInteger;
 
 @Entity
 @Table(name = "notes")
@@ -16,8 +23,7 @@ public class Note {
 
     private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("userId")
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
     public Long getId() {
@@ -59,6 +65,18 @@ public class Note {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public Note getOriginalPassword(User user) {
+        BigInteger decryptedAESKey = MainAlgo.decrypt(stringToBigInteger(user.getOpenKey()),
+                stringToBigInteger(user.getSecretKey()),
+                stringToBigInteger(user.getAesKey()));
+        if (user.getAesKeySign() < 0) {
+            decryptedAESKey = decryptedAESKey.negate();
+        }
+        this.password = Aes.decrypt(password, bigIntegerToString(decryptedAESKey));
+        return this;
+    }
+
 
     @Override
     public boolean equals(Object o) {

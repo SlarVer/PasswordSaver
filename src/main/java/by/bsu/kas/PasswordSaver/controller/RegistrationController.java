@@ -37,11 +37,13 @@ public class RegistrationController {
             model.addAttribute("passwordRepeatError", "Passwords don't match");
         } else {
             if (userService.saveUser(newUser)) {
+                userService.generateKeys(newUser.getUsername());
                 return "redirect:login";
             } else {
                 model.addAttribute("userExistsError", "Username already taken");
             }
         }
+
         return "registration";
     }
 }
