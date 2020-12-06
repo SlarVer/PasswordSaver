@@ -5,6 +5,6 @@
         <a class="btn btn-dark btn-head" href="/profile" sec:authorize="isAuthenticated()" th:text="${username}"/>
         <a class="btn btn-dark btn-head" href="/admin" sec:authorize="hasRole('ROLE_ADMIN')">Admin</a>
         <a class="btn btn-dark btn-head" href="/logout" sec:authorize="isAuthenticated()">Log out</a>
-        <a class="btn btn-dark btn-head" href="/notes">Main</a>
+        <a class="btn btn-dark btn-head" href="/main">Main</a>
     </div>
 </div>

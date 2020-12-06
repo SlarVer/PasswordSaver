@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <link rel="stylesheet" th:href="@{/css/style.css}" />
-    <title>Edit</title>
+    <title>Add</title>
 </head>
 <body class="bg">
 <header th:insert="blocks/header :: header"/>
@@ -17,31 +17,25 @@
     <div class="row">
         <div class="col-md-4 col-sm-4 col-xs-12"></div>
         <div class="col-md-4 col-sm-4 col-xs-12">
-            <form method="post" class="form-container" th:object="${movie}">
-                <h2 style="text-align: center">Edit movie</h2>
+            <form method="post" class="form-container" th:object="${note}">
+                <h2 style="text-align: center">Add accounts</h2>
                 <div class="form-group">
-                    <label for="title">Title</label>
-                    <input th:field="*{title}" placeholder="Enter title" class="form-control">
-                    <span th:errors="*{title}" class="error" id="title" ></span>
+                    <label for="service">Service</label>
+                    <input th:field="*{service}" placeholder="Enter service" id="service" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="slogan">Slogan</label>
-                    <input th:field="*{slogan}" placeholder="Enter slogan" class="form-control">
-                    <span th:errors="*{slogan}" class="error" id="slogan" ></span>
+                    <label for="username">Username</label>
+                    <input th:field="*{username}" placeholder="Enter username" id="username" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="year">Year</label>
-                    <input th:field="*{year}" placeholder="Enter year" class="form-control">
-                    <span th:errors="*{year}" class="error" id="year" ></span>
+                    <label for="password">Password</label>
+                    <input th:field="*{password}" placeholder="Enter password" id="password" class="form-control">
                 </div>
-                <div class="form-group">
-                    <label for="length">Length</label>
-                    <input th:field="*{length}" placeholder="Enter length (min)" class="form-control">
-                    <span th:errors="*{length}" class="error" id="length" ></span>
-                </div>
+                <p th:if="${successAddMessage != null}" class="alert alert-success" th:text="${successAddMessage}"/>
+                <p th:if="${errorAddMessage != null}" class="alert alert-danger" th:text="${errorAddMessage}"/>
                 <div class="form-group" style="text-align: center">
-                    <button type="submit" class="btn btn-medium btn-secondary" style="text-align: center">Update</button>
-                    <a th:href="'/allMovies/' + ${movie.title}" class="btn btn-medium btn-secondary">Back</a>
+                    <button type="submit" class="btn btn-medium btn-secondary" style="text-align: center">Add</button>
+                    <a href="/notes" class="btn btn-medium btn-secondary">Back</a>
                 </div>
             </form>
         </div>

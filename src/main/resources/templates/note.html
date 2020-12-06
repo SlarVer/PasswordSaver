@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <link rel="stylesheet" th:href="@{/css/style.css}" />
-    <title th:text="${notes.get(0).service}"/>
+    <title th:text="${service}"/>
 </head>
 <body class="bg">
 <header th:insert="blocks/header :: header"/>
@@ -18,9 +18,15 @@
         <div class="col-md-3 col-sm-3 col-xs-12"></div>
         <div class="col-md-6 col-sm-6 col-xs-12">
             <div class="form-container" style="text-align: center">
-                <h2 th:text="'Accounts assosiated with service &#34' + ${notes.get(0).service} + '&#34'"/>
+                <h2 th:text="'Accounts assosiated with service &#34' + ${service} + '&#34'"/>
                 <div th:each="note: ${notes}" class="form-container-small" style="text-align: left">
                     <h3 th:text="${note.username} + ' - ' + ${note.password}"/>
+                </div>
+                <div class="form-group">
+                    <a th:href="@{/notes/{service}/add(service = ${service})}" class="btn btn-medium btn-secondary">Add</a>
+                </div>
+                <div>
+                    <a href="/notes" class="btn btn-medium btn-secondary">Back</a>
                 </div>
             </div>
         </div>

@@ -8,32 +8,34 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <link rel="stylesheet" th:href="@{/css/style.css}" />
-    <title>Main page</title>
+    <title>Add</title>
 </head>
 <body class="bg">
 <header th:insert="blocks/header :: header"/>
+
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-2 col-sm-2 col-xs-12"></div>
-        <div class="col-md-8 col-sm-8 col-xs-12">
-            <form class="form-container" style="text-align: center">
-                <div sec:authorize="isAuthenticated()">
-                    <h1 th:if="${serviceList.size() != 0}" th:text="'All the credentials you&#x60ve saved'"/>
-                    <div class="d-flex flex-column">
-                        <div th:each="service: ${serviceList}">
-                            <div class="p-2" style="text-align: left">
-                                <a th:text="${service}" th:href="'/notes/' + ${service}" style="font-size: large"/>
-                            </div>
-                        </div>
-                    </div>
-                    <h1 th:if="${serviceList.size() == 0}" th:text="'Looks like you haven&#x60t saved any data yet'"/>
-                    <div class="form-group">
-                        <a href="/notes/add" class="btn btn-medium btn-secondary">Add</a>
-                    </div>
+        <div class="col-md-4 col-sm-4 col-xs-12"></div>
+        <div class="col-md-4 col-sm-4 col-xs-12">
+            <form method="post" class="form-container" th:object="${note}">
+                <h2 style="text-align: center">Add accounts</h2>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input th:field="*{username}" placeholder="Enter username" id="username" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input th:field="*{password}" placeholder="Enter password" id="password" class="form-control">
+                </div>
+                <p th:if="${successAddMessage != null}" class="alert alert-success" th:text="${successAddMessage}"/>
+                <p th:if="${errorAddMessage != null}" class="alert alert-danger" th:text="${errorAddMessage}"/>
+                <div class="form-group" style="text-align: center">
+                    <button type="submit" class="btn btn-medium btn-secondary" style="text-align: center">Add</button>
+                    <a th:href="@{'/notes/' + ${service}}" class="btn btn-medium btn-secondary">Back</a>
                 </div>
             </form>
         </div>
-        <div class="col-md-2 col-sm-2 col-xs-12"></div>
+        <div class="col-md-4 col-sm-4 col-xs-12"></div>
     </div>
 
 
