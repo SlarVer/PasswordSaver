@@ -43,20 +43,24 @@ public class NoteService {
     }
 
     public Set<String> getServicesByUser(User user) {
-        return getAllNotesByUser(user).stream().map(Note::getService).collect(Collectors.toSet());
+        return getAllNotesByUser(user).stream().map(Note::getService)
+                .collect(Collectors.toSet());
     }
 
     public boolean saveNote(Note note, User user) {
-        if (noteRepository.findByServiceAndUsername(note.getService(), note.getUsername()) != null) {
+        if (noteRepository.findByServiceAndUsername(note.getService(),
+                note.getUsername()) != null) {
             return false;
         } else{
-            BigInteger decryptedAESKey = MainAlgo.decrypt(stringToBigInteger(user.getOpenKey()),
+            BigInteger decryptedAESKey = MainAlgo.decrypt(
+                    stringToBigInteger(user.getOpenKey()),
                     stringToBigInteger(user.getSecretKey()),
                     stringToBigInteger(user.getAesKey()));
             if (user.getAesKeySign() < 0) {
                 decryptedAESKey = decryptedAESKey.negate();
             }
-            note.setPassword(Aes.encrypt(note.getPassword(), bigIntegerToString(decryptedAESKey)));
+            note.setPassword(Aes.encrypt(note.getPassword(),
+                    bigIntegerToString(decryptedAESKey)));
             note.setUser(user);
             noteRepository.save(note);
             return true;

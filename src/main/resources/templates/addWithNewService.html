@@ -29,7 +29,7 @@
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input th:field="*{password}" placeholder="Enter password" id="password" class="form-control">
+                    <input th:field="*{password}" placeholder="Enter password" id="password" type="password" class="form-control">
                 </div>
                 <p th:if="${successAddMessage != null}" class="alert alert-success" th:text="${successAddMessage}"/>
                 <p th:if="${errorAddMessage != null}" class="alert alert-danger" th:text="${errorAddMessage}"/>
